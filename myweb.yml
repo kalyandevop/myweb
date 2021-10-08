@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: dev
   # sudo permission
   become: true
 
@@ -12,12 +12,7 @@
     - name: Copying the war file to the destination
       copy: src=/root/myweb/myweb-0.12.0.war dest="{{ tomcat_path }}/../webapps/"
 
-    - name: ==> shutdown qle tomcat ,path = "{{ tomcat_path }}/bin/"
-      command: sh {{ tomcat_path }}/shutdown.sh
-
-    - name: ==> sleep 3s
-      command: sleep 3s
-
+   
     - name: Check if Apache is running
       shell: ps aux | grep '{{ grep_string }}' | awk '{print $2}'
       ignore_errors: yes
